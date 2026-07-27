@@ -9,6 +9,7 @@ export default function CustomCursor() {
   const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
+    // Disable custom cursor on touch devices (mobile / tablet)
     if (window.matchMedia('(pointer: coarse)').matches) {
       setIsTouch(true);
       return;
@@ -42,6 +43,11 @@ export default function CustomCursor() {
       window.removeEventListener('mouseover', handleMouseOver);
     };
   }, []);
+
+  // SSR & Touch Device Guard
+  if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+    return null;
+  }
 
   if (isTouch) return null;
 

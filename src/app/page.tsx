@@ -1,60 +1,41 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { MeshDistortMaterial, Float, Environment } from '@react-three/drei';
+import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { ArrowDown, Sparkles, Play, Zap, Cpu, TrendingUp } from 'lucide-react';
-import * as THREE from 'three';
 import VideoModal from '@/components/VideoModal';
 import ContactForm from '@/components/ContactForm';
 
-// 3D Liquid Chrome Blob Component
-function LiquidChromeSphere() {
-  const meshRef = useRef<THREE.Mesh>(null!);
-
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.getElapsedTime() * 0.15;
-      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.25;
-    }
-  });
-
-  return (
-    <Float speed={2} rotationIntensity={1.5} floatIntensity={1.8}>
-      <mesh ref={meshRef} scale={2.2}>
-        <sphereGeometry args={[1, 128, 128]} />
-        <MeshDistortMaterial
-          color="#ffffff"
-          envMapIntensity={3.0}
-          clearcoat={1}
-          clearcoatRoughness={0}
-          metalness={0.95}
-          roughness={0.08}
-          distort={0.45}
-          speed={3}
-        />
-      </mesh>
-    </Float>
-  );
-}
+// Dynamic imports with SSR disabled for optimal Three.js / R3F loading
+const LiquidChromeCanvas = dynamic(
+  () => import('@/components/3d/LiquidChromeCanvas'),
+  { 
+    ssr: false, 
+    loading: () => <div className="fixed inset-0 bg-[#040407]" /> 
+  }
+);
 
 export default function Home() {
   const [showreelOpen, setShowreelOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <main className="relative min-h-screen bg-[#040407] text-white overflow-x-hidden font-sans selection:bg-purple-500 selection:text-white">
       
-      {/* 3D Background Canvas (Fixed background) */}
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-80">
-        <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>
-          <ambientLight intensity={0.6} />
-          <directionalLight position={[10, 10, 5]} intensity={2.5} color="#a855f7" />
-          <directionalLight position={[-10, -10, -5]} intensity={2.0} color="#ec4899" />
-          <LiquidChromeSphere />
-          <Environment preset="studio" />
-        </Canvas>
-      </div>
+      {/* 3D Background Canvas on Desktop / Cyber Gradient Fallback on Mobile */}
+      {!isMobile ? (
+        <LiquidChromeCanvas />
+      ) : (
+        <div className="fixed inset-0 bg-gradient-to-b from-[#0a0a12] via-[#040407] to-[#040407] z-0 pointer-events-none" />
+      )}
 
       {/* Volumetric Ambient Glow */}
       <div className="fixed inset-0 pointer-events-none flex items-center justify-center z-0">
@@ -111,7 +92,6 @@ export default function Home() {
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-4 pointer-events-auto">
-            {/* Watch Showreel Button triggers VideoModal */}
             <button
               onClick={() => setShowreelOpen(true)}
               className="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-purple-300 transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:scale-105 flex items-center gap-2 cursor-pointer"
@@ -135,7 +115,6 @@ export default function Home() {
           <h2 className="text-4xl sm:text-6xl font-bold tracking-tight font-serif">AI UGC & AD SHOWCASE</h2>
         </div>
 
-        {/* Showreel Preview Card triggers VideoModal */}
         <div
           onClick={() => setShowreelOpen(true)}
           className="relative aspect-video rounded-3xl border border-white/15 bg-white/5 backdrop-blur-xl overflow-hidden shadow-[0_0_50px_rgba(168,85,247,0.15)] flex items-center justify-center group cursor-pointer"
@@ -219,7 +198,6 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Embedded ContactForm linked to /api/contact */}
         <ContactForm />
 
         <footer className="mt-20 text-xs font-mono text-white/40 flex flex-col sm:flex-row justify-between items-center border-t border-white/10 pt-8 gap-4">
