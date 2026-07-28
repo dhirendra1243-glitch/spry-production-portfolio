@@ -1,41 +1,31 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { ArrowDown, Sparkles, Play, Zap, Cpu, TrendingUp } from 'lucide-react';
 import VideoModal from '@/components/VideoModal';
 import ContactForm from '@/components/ContactForm';
 
-// Dynamic imports with SSR disabled for optimal Three.js / R3F loading
+// Dynamic import with SSR disabled for 3D Chrome Bubble Canvas
 const LiquidChromeCanvas = dynamic(
   () => import('@/components/3d/LiquidChromeCanvas'),
   { 
     ssr: false, 
-    loading: () => <div className="fixed inset-0 bg-[#040407]" /> 
+    loading: () => <div className="absolute inset-0 bg-[#040407]" /> 
   }
 );
 
 export default function Home() {
   const [showreelOpen, setShowreelOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   return (
     <main className="relative min-h-screen bg-[#040407] text-white overflow-x-hidden font-sans selection:bg-purple-500 selection:text-white">
       
-      {/* 3D Background Canvas on Desktop / Cyber Gradient Fallback on Mobile */}
-      {!isMobile ? (
+      {/* 3D Chrome Bubble Canvas background (Enabled for Desktop & Mobile) */}
+      <div className="absolute inset-0 pointer-events-none z-0">
         <LiquidChromeCanvas />
-      ) : (
-        <div className="fixed inset-0 bg-gradient-to-b from-[#0a0a12] via-[#040407] to-[#040407] z-0 pointer-events-none" />
-      )}
+      </div>
 
       {/* Volumetric Ambient Glow */}
       <div className="fixed inset-0 pointer-events-none flex items-center justify-center z-0">
