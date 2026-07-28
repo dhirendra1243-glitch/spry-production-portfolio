@@ -6,19 +6,19 @@ import { Float, MeshDistortMaterial, Environment } from "@react-three/drei";
 import * as THREE from "three";
 import { CanvasErrorBoundary } from "./CanvasErrorBoundary";
 
-// 3D Liquid Chrome Blob Component with Responsive Dynamic Scaling
+// 3D Liquid Chrome Blob Component with Responsive Dynamic Proportions
 function LiquidChromeSphere() {
   const meshRef = useRef<THREE.Mesh>(null!);
-  const [scale, setScale] = useState(2.3);
+  const [scale, setScale] = useState(1.5);
 
   useEffect(() => {
     const handleResize = () => {
-      // 1.35 on mobile fits perfectly inside narrow phone viewports
-      // 2.3 on desktop gives the exact framing from design screenshots
+      // 0.9 on mobile keeps it contained vertically on phones
+      // 1.5 on desktop gives the exact centered bubble framing
       if (window.innerWidth < 768) {
-        setScale(1.35);
+        setScale(0.9);
       } else {
-        setScale(2.3);
+        setScale(1.5);
       }
     };
 
@@ -68,9 +68,9 @@ function LiquidChromeSphere() {
 export default function LiquidChromeCanvas() {
   return (
     <CanvasErrorBoundary>
-      <div className="w-full h-full pointer-events-none touch-pan-y">
+      <div className="w-full h-full pointer-events-none touch-pan-y flex items-center justify-center">
         <Canvas
-          camera={{ position: [0, 0, 7.5], fov: 45 }}
+          camera={{ position: [0, 0, 5], fov: 45 }}
           dpr={[1, 1.5]}
           performance={{ min: 0.5 }}
           gl={{ powerPreference: 'high-performance', antialias: false }}
