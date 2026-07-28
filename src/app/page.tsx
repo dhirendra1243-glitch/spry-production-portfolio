@@ -23,7 +23,7 @@ export default function Home() {
     <main className="relative min-h-screen bg-[#040407] text-white overflow-x-hidden font-sans selection:bg-purple-500 selection:text-white">
       
       {/* 3D Chrome Bubble Canvas background (Enabled for Desktop & Mobile) */}
-      <div className="absolute inset-0 pointer-events-none z-0">
+      <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center">
         <LiquidChromeCanvas />
       </div>
 
@@ -62,35 +62,39 @@ export default function Home() {
       </div>
 
       {/* SECTION 1: HERO */}
-      <section className="relative z-10 min-h-screen flex flex-col justify-center items-center px-4 text-center pt-12">
+      <section className="relative z-10 w-full min-h-[650px] h-screen flex items-center justify-center overflow-hidden bg-transparent px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="max-w-5xl"
+          className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto pt-8"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6 text-xs tracking-widest text-purple-300 font-mono">
+          {/* Badge */}
+          <div className="mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-950/20 backdrop-blur-md text-xs font-mono text-purple-300">
             <Sparkles size={14} className="text-purple-400" /> AI-DRIVEN VISUAL PERFORMANCE
           </div>
-          
-          <h1 className="text-7xl sm:text-9xl md:text-[13rem] font-black tracking-tighter uppercase font-serif leading-none bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/20 drop-shadow-2xl">
+
+          {/* SPRY Headline */}
+          <h1 className="text-6xl sm:text-8xl md:text-[11rem] font-black tracking-tight text-white mb-6 drop-shadow-2xl font-serif uppercase leading-none">
             SPRY
           </h1>
-          
-          <p className="mt-4 text-lg sm:text-2xl text-white/70 max-w-2xl mx-auto font-light tracking-wide">
+
+          {/* Subtitle */}
+          <p className="text-base sm:text-lg text-neutral-300 max-w-2xl mb-8 leading-relaxed font-light">
             Next-generation AI video ads, hyper-realistic UGC, and cinematic commercials crafted from pure prompts.
           </p>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-4 pointer-events-auto">
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row items-center gap-4 pointer-events-auto">
             <button
               onClick={() => setShowreelOpen(true)}
-              className="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-purple-300 transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:scale-105 flex items-center gap-2 cursor-pointer"
+              className="px-7 py-3.5 rounded-full bg-white text-black font-semibold text-sm hover:bg-neutral-200 transition-all flex items-center gap-2 shadow-lg cursor-pointer hover:scale-105"
             >
-              <Play size={18} fill="currentColor" /> Watch Showreel
+              <Play size={16} fill="currentColor" /> Watch Showreel
             </button>
             <a
               href="#contact"
-              className="px-8 py-4 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white font-medium hover:bg-white/20 transition-all duration-300 hover:scale-105"
+              className="px-7 py-3.5 rounded-full bg-neutral-900/80 border border-neutral-700 text-white font-medium text-sm hover:bg-neutral-800 transition-all backdrop-blur-md hover:scale-105"
             >
               Book Campaign
             </a>
