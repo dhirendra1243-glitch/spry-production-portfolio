@@ -47,10 +47,10 @@ function LiquidChromeMesh() {
   );
 }
 
-export function LiquidChromeCanvas() {
+export default function LiquidChromeCanvas() {
   return (
     <CanvasErrorBoundary>
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-80 touch-pan-y">
+      <div className="w-full h-full pointer-events-none touch-pan-y">
         <Canvas
           dpr={[1, 1.5]}
           performance={{ min: 0.5 }}
@@ -64,4 +64,4 @@ export function LiquidChromeCanvas() {
   );
 }
 
-export default LiquidChromeCanvas;
+export { LiquidChromeCanvas };
