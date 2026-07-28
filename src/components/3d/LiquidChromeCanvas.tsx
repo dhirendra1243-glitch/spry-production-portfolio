@@ -70,7 +70,7 @@ export default function LiquidChromeCanvas() {
     <CanvasErrorBoundary>
       <div className="w-full h-full pointer-events-none touch-pan-y">
         <Canvas
-          camera={{ position: [0, 0, 5], fov: 45 }}
+          camera={{ position: [0, 0, 7.5], fov: 45 }}
           dpr={[1, 1.5]}
           performance={{ min: 0.5 }}
           gl={{ powerPreference: 'high-performance', antialias: false }}
