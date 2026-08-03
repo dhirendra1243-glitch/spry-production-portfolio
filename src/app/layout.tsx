@@ -1,5 +1,6 @@
 import './globals.css';
 import CustomCursor from '@/components/CustomCursor';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className="bg-[#040407] text-white antialiased selection:bg-purple-500 selection:text-white">
         <CustomCursor />
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
