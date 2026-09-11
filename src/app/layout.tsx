@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   title: 'SPRY Production | AI UGC & Cinematic Ads Studio',
   description: 'Next-generation AI video ads, hyper-realistic UGC, and cinematic commercials.',
   icons: {
-    icon: '/icon.png',
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/icon.png', type: 'image/png' },
+    ],
+    shortcut: '/icon.png',
     apple: '/apple-icon.png',
   },
 };
@@ -20,6 +24,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        <link rel="icon" href="/icon.png" type="image/png" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
