@@ -8,7 +8,7 @@ export default function ContactForm() {
     name: '',
     email: '',
     brand: '',
-    budget: '$5k - $10k',
+    budget: '25k-50k',
     message: '',
   });
 
@@ -27,7 +27,7 @@ export default function ContactForm() {
 
       if (res.ok) {
         setStatus('success');
-        setFormData({ name: '', email: '', brand: '', budget: '$5k - $10k', message: '' });
+        setFormData({ name: '', email: '', brand: '', budget: '25k-50k', message: '' });
       } else {
         setStatus('error');
       }
@@ -91,15 +91,18 @@ export default function ContactForm() {
               />
             </div>
             <div>
-              <label className="block text-xs font-mono text-white/60 uppercase mb-2">Project Budget</label>
+              <label htmlFor="budget" className="block text-xs font-mono text-white/60 uppercase mb-2">Project Budget</label>
               <select
+                id="budget"
+                name="budget"
                 value={formData.budget}
                 onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
                 className="w-full px-4 py-3 rounded-xl bg-[#08080f] border border-white/10 text-white focus:outline-none focus:border-purple-500 transition-colors"
               >
-                <option value="$2k - $5k">$2,000 – $5,000</option>
-                <option value="$5k - $10k">$5,000 – $10,000</option>
-                <option value="$10k+">$10,000+</option>
+                <option value="under-25k">Under ₹25,000</option>
+                <option value="25k-50k">₹25,000 – ₹50,000</option>
+                <option value="50k-100k">₹50,000 – ₹1,00,000</option>
+                <option value="100k-plus">₹1,00,000+</option>
               </select>
             </div>
           </div>
