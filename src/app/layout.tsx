@@ -5,10 +5,9 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'SPRY Production | AI UGC & Cinematic Ads Studio',
-  description: '100% AI-generated high-converting video ads and commercials.',
+  description: 'Next-generation AI video ads, hyper-realistic UGC, and cinematic commercials.',
   icons: {
     icon: '/icon.png',
-    shortcut: '/icon.png',
     apple: '/apple-icon.png',
   },
 };
